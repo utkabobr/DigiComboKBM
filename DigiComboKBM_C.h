@@ -30,8 +30,9 @@ extern "C" {
 #define REPORT_ID_MOUSE     0x1
 #define REPORT_ID_KEYBOARD  0x2
 
-#define REPORT_SIZE_MOUSE         REPORT_ID_SIZE + 4
-#define REPORT_SIZE_KEYBOARD      REPORT_ID_SIZE + 2
+#define MAX_HELD_KEYS             6
+#define REPORT_SIZE_MOUSE         REPORT_ID_SIZE + 1 + 2 + 1         // Masked buttons + X/Y + Wheel
+#define REPORT_SIZE_KEYBOARD      REPORT_ID_SIZE + 1 + MAX_HELD_KEYS // Modifiers + keys
 
 #define BUFFER_SIZE MAX(REPORT_SIZE_MOUSE, REPORT_SIZE_KEYBOARD)
 

@@ -52,8 +52,32 @@ void Digi_ComboKBM::pressKey(uint8_t keycode, uint8_t modifiers)
 {
     report_buffer[0] = REPORT_ID_KEYBOARD;
     report_buffer[1] = modifiers;
-    report_buffer[2] = keycode;
+	report_buffer[2] = keycode;
+	for (int i = 3; i < REPORT_SIZE_KEYBOARD; i++) {
+		report_buffer[i] = 0;
+	}
+	
     usbReportSend(REPORT_SIZE_KEYBOARD);
+}
+
+void Digi_ComboKBM::pressKeys(uint8_t* keycodes, uint8_t size, uint8_t modifiers)
+{
+    report_buffer[0] = REPORT_ID_KEYBOARD;
+    report_buffer[1] = modifiers;
+	for (int i = 0; i < min(size, MAX_HELD_KEYS); i++) {
+		if (i >= size) {
+			report_buffer[2 + i] = 0;
+		} else {
+			report_buffer[2 + i] = keycodes[i];
+		}
+	}
+	
+    usbReportSend(REPORT_SIZE_KEYBOARD);
+}
+
+void Digi_ComboKBM::releaseKeys()
+{
+	pressKey(0, 0);
 }
 
 void Digi_ComboKBM::sendKeyStroke(uint8_t keycode, uint8_t modifiers)

@@ -25,10 +25,10 @@ class Digi_ComboKBM : public Print {
   private:
     uint8_t lastContactId = 0;
     uint8_t countContact();
-    void poll();
   public:
     /* Initial setup to be known as USB-HID. */
     void begin(); 
+	void poll();
 
     /**
      * Provides a special type of delay that prevents the system from generating 
@@ -53,16 +53,29 @@ class Digi_ComboKBM : public Print {
      * @param modifiers includes MOD_* for useing more than one compose them with OR operation 
      */
     void sendKeyStroke(uint8_t keycode, uint8_t modifiers = 0);
+	
+    /**
+     * Send simultaneous keys
+     * @param keycodes A set of keycodes, up to MAX_HELD_KEYS
+     * @param size Length of active keys
+     * @param modifiers includes MOD_* for useing more than one compose them with OR operation 
+     */
+    void pressKeys(uint8_t* keycodes, uint8_t size, uint8_t modifiers = 0);
 
-	/**
-	* Sends mouse data
-	*
-	* @param deltaX	X movement
-	* @param deltaY	Y movement
-	* @param deltaS	Scroll data
-	* @param buttons Buttons mask
-	*/
-	void move(char deltaX, char deltaY, char deltaS = 0, unsigned char buttons = 0);
+    /**
+     * Releases all held keyboard keys
+     */
+    void releaseKeys();
+
+    /**
+     * Sends mouse data
+     *
+     * @param deltaX	X movement
+     * @param deltaY	Y movement
+     * @param deltaS	Scroll data
+     * @param buttons Buttons mask
+     */
+    void move(char deltaX, char deltaY, char deltaS = 0, unsigned char buttons = 0);
 
     /* To print a character. */
 		virtual size_t write(uint8_t);

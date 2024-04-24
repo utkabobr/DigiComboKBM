@@ -228,7 +228,7 @@ extern void calibrateOscillator(void);
  * own Vendor ID, define it here. Otherwise you may use one of obdev's free
  * shared VID/PID pairs. Be sure to read USB-IDs-for-free.txt for rules!
  */
-#define  USB_CFG_DEVICE_ID       0xd9, 0x27 /* = 0x05dc = 1500 */
+#define  USB_CFG_DEVICE_ID       0xdb, 0x27 /* = 0x05dc = 1500 */
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
